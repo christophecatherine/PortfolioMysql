@@ -1,0 +1,57 @@
+{{!--
+:partial
+Collapse Compétences
+--}}
+
+<!-- collaps competence -->
+<div class="card" style="margin-top: 2em;">
+    <div id="mySkill" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card">
+
+            <!-- table message -->
+            <table class="table">
+
+                <!-- head de mon tableau -->
+                <thead>
+                    <tr>
+                        <td scope="col">index</td>
+                        <td scope="col">username</td>
+                        <td scope="col">email</td>
+                        <td scope="col">sujet</td>
+                        <td scope="col">actions</td>
+                    </tr>
+                </thead>
+
+                <!-- body tableau -->
+                <tbody>
+                    <!-- item tableau -->
+                    {{#each dbMessage }}
+                    <tr>
+                        <td scope="row"> {{ inc @index }} </td>
+                        <td> {{ username }} </td>
+                        <td> {{ email }} </td>
+                        <td> {{ sujet }} </td>
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                data-target="#modalEdit{{_id}}">
+                                <i class="far fa-edit"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                data-target="#modalDelete{{_id}}">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                    {{!-- Import partial modal edit message --}}
+                    {{> modals/modalViewMessage }}
+
+                    {{!-- Import partial modal delete message --}}
+                    {{> modals/modalDeleteMessage }}
+
+                    {{/each }}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

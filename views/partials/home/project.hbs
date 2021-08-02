@@ -1,0 +1,114 @@
+{{!--
+Page project
+/ project
+
+--}}
+
+
+<section id="project" class="container" style="margin-top: 30vh; margin-bottom: 30vh;">
+    <div class="text-center font-weight-bold ">
+        <h1>Mes projects</h1>
+        <h2>Une partie des projects sur lesquels j'ai travaillé</h2>
+    </div>
+
+    {{!--
+    Permet de recuperer la varible input depuis mon controller afin d'afficher mon input pour filtrer ma liste --}}
+    {{#if search }}
+    <!-- SearchBar -->
+    <div class="container mt-5">
+        <div class="row mt-5">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text " id="basic-addon1">Recherche:</span>
+                </div>
+                <input id='searchBar' onkeyup="myFunction()" type="text" class="form-control" placeholder="Rechercher"
+                    aria-label="Rechercher" aria-describedby="basic-addon1">
+            </div>
+        </div>
+    </div>
+    <!-- / SearchBar -->
+    <div id="listCard">
+        <div class="row justify-content-around" style="margin-top: 10vh; margin-bottom: 30vh;">
+
+            {{#each (arrayReverse dbPresentation )}}
+
+            <div class="card filterCard col-md-4 col-12 col-sm-12">
+                <a class="underline-none txt-black" href="/presentation/{{ _id }}">
+                    <img src="{{ imgPresentation }}" class="card-img-top" style='height: 150px' alt="..." />
+                    <div class="card-body">
+                        <h5 class="card-title">{{ title }}</h5>
+                        <p class="card-text">
+                            {{{ content }}}
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">{{moment createDate locale="fr" format="dddd, DD MMMM YYYy"}}</small>
+                    </div>
+                </a>
+            </div>
+
+            {{/each }}
+
+        </div>
+    </div>
+
+    <!-- Script Input searchbar  -->
+
+    <script>
+        function myFunction() {
+            var input, filter, listCard, filterCard, a, i, txtValue;
+            input = document.getElementById('searchBar');
+            filter = input.value.toUpperCase();
+            listCard = document.getElementById("listCard");
+            filterCard = listCard.getElementsByClassName('filterCard');
+
+            for (i = 0; i < filterCard.length; i++) {
+                p = filterCard[i].getElementsByTagName("a")[0];
+                txtValue = (p.textContent || p.innerText)
+
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+
+                    filterCard[i].style.display = "";
+                } else {
+
+                    filterCard[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+    <!-- / Script Input searchbar  -->
+
+    {{else }}
+
+    <div id="listCard">
+        <div class="row justify-content-around" style="margin-top: 10vh; margin-bottom: 30vh;">
+
+            {{#each ( limitArrayReverse dbPresentation 3 ) }}
+
+            <div class="card filterCard col-md-4 col-12 col-sm-12">
+                <a class="underline-none txt-black" href="/presentation/{{ _id }}">
+                    <img src="{{ imgPresentation }}" class="card-img-top" alt="..." />
+                    <div class="card-body">
+                        <h5 class="card-title">{{ title }}</h5>
+                        <p class="card-text">
+                            {{{ content }}}
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">{{moment createDate locale="fr" format="dddd, DD MMMM YYYy"}}</small>
+                    </div>
+                </a>
+            </div>
+
+            {{/each }}
+
+        </div>
+    </div>
+
+    {{/if }}
+
+    <!-- MON PROJECT1 -->
+
+
+
+</section>

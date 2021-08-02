@@ -1,0 +1,70 @@
+{{!--
+:partial
+Collapse Présentation Admin
+--}}
+
+
+<!-- collaps presentation -->
+<div class="card" style="margin-top: 2em;">
+    <div id="presentation" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card">
+            <!--button create-->
+            <button type="button" class="btn btn-warning btn-sm" style="background-color: #777; border-color :#000"
+                data-toggle="modal" data-target="#modalCreatePresentation">
+                <i class="fas fa-plus"></i>
+            </button>
+            <!-- / button create-->
+
+            {{!-- Import partial modal Create presentations --}}
+            {{> modals/modalCreatePresentation }}
+
+            <table class="table">
+                <!-- table presentation -->
+                <!-- head de mon tableau -->
+                <thead>
+                    <tr>
+                        <td scope="col">index</td>
+                        <td scope="col">image</td>
+                        <td scope="col">titre</td>
+                        <td scope="col">date</td>
+                        <td scope="col">description</td>
+                        <td scope="col">actions</td>
+                    </tr>
+                </thead>
+                <!-- body tableau -->
+                <tbody>
+                    <!-- item tableau -->
+                    {{#each dbPresentation }}
+                    <tr>
+                        <td> {{ inc @index }} </td>
+                        <th scope="col">
+                            <img style="height: 35px;" src="{{ imgPresentation }}" alt=" ">
+                        </th>
+                        <td> {{ title }} </td>
+                        <td> {{ author }} </td>
+                        <td> {{{ content }}} </td>
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                data-target="#modalEdit{{_id}}">
+                                <i class="far fa-edit"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                data-target="#modalDelete{{_id}}">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                    {{!-- Import partial modal edit presentation --}}
+                    {{> modals/modalEditPresentation }}
+
+                    {{!-- Import partial modal delete presentation --}}
+                    {{> modals/modalDeletePresentation }}
+
+                    {{/each }}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
